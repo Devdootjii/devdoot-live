@@ -60,7 +60,7 @@ def update_password(username, new_pass):
         if cell: ws.update_cell(cell.row, 2, new_pass)
 
 # ==========================================
-# BLOCK 2: THE SOLID CONSOLE UI (NO TRANSPARENCY) 🛡️
+# BLOCK 2: THE UI REDEMPTION (FIXED CSS) 🎨
 # ==========================================
 def add_bg_from_local(image_file):
     try:
@@ -89,47 +89,84 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500;800&display=swap');
     html, body, [class*="css"] { font-family: 'Exo 2', sans-serif; color: #ffffff; }
 
-    /* --- THE SOLID WALL (Main Container) --- */
-    /* This creates the solid box. Video CANNOT be seen through this. */
-    [data-testid="block-container"] {
-        background-color: #0e1117 !important; /* SOLID DARK GREY (Not Transparent) */
-        opacity: 1 !important;
-        
-        /* Box Styling */
+    /* --- THE SOLID CONSOLE BOX (Fixed) --- */
+    /* This creates the dark box in the middle */
+    .block-container {
+        background-color: rgba(10, 10, 10, 0.95) !important; /* Almost Solid Black */
         border: 2px solid #00c6ff;
         border-radius: 15px;
         padding: 3rem !important;
+        margin-top: 2rem;
         box-shadow: 0 0 50px rgba(0, 198, 255, 0.2);
-        
-        /* Sizing & Centering (To show video on edges) */
-        width: 85% !important;
-        max-width: 1200px !important;
-        margin: auto !important;
-        margin-top: 30px !important;
+        max-width: 90% !important; /* Leave space for video on sides */
     }
 
-    /* --- HEADINGS --- */
+    /* --- NEON HEADINGS --- */
     h1, h2, h3 {
-        background: linear-gradient(to right, #00c6ff, #0072ff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        font-weight: 800 !important; text-transform: uppercase; letter-spacing: 2px;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
     }
     
-    /* --- INPUT FIELDS (Solid Backgrounds) --- */
-    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: #1c1f26 !important; /* Lighter Grey */
-        color: white !important;
-        border: 1px solid #444 !important;
+    /* --- LOGO GLOW --- */
+    [data-testid="stImage"] img {
+        border-radius: 50% !important;
+        border: 3px solid #00c6ff !important;
+        box-shadow: 0 0 20px #00c6ff !important;
     }
 
-    /* --- TABS --- */
-    .stTabs [data-baseweb="tab-list"] { gap: 10px; }
-    .stTabs [data-baseweb="tab"] { background-color: #1c1f26; border: 1px solid #444; color: #ccc; }
-    .stTabs [aria-selected="true"] { background: #00c6ff !important; color: black !important; border: none; }
+    /* --- INPUT FIELDS --- */
+    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
+        background-color: #111 !important;
+        color: white !important;
+        border: 1px solid #333 !important;
+        border-radius: 5px !important;
+    }
+
+    /* --- TABS (Fixed) --- */
+    .stTabs [data-baseweb="tab-list"] { 
+        gap: 10px; 
+        background: transparent;
+    }
+    .stTabs [data-baseweb="tab"] { 
+        background-color: #222 !important; 
+        border: 1px solid #444 !important; 
+        color: #aaa !important; 
+        border-radius: 5px !important;
+    }
+    .stTabs [aria-selected="true"] { 
+        background: #00c6ff !important; 
+        color: black !important; 
+        font-weight: bold !important;
+        box-shadow: 0 0 15px #00c6ff !important;
+        border: none !important;
+    }
     
-    /* --- BUTTONS --- */
-    .stButton>button { border: 1px solid #00c6ff; color: #00c6ff; background: transparent; }
-    .stButton>button:hover { background: #00c6ff; color: black; }
+    /* --- BUTTONS (Restored Neon Style) --- */
+    .stButton > button {
+        background-color: transparent !important;
+        color: #00c6ff !important;
+        border: 2px solid #00c6ff !important;
+        border-radius: 50px !important;
+        font-weight: bold !important;
+        padding: 0.5rem 2rem !important;
+        transition: all 0.3s ease !important;
+    }
+    .stButton > button:hover {
+        background-color: #00c6ff !important;
+        color: black !important;
+        box-shadow: 0 0 20px #00c6ff !important;
+        transform: scale(1.05) !important;
+    }
+    
+    /* --- POWER BUTTON (RED) --- */
+    div[data-testid="column"] .stButton button p:contains("⏻") {
+        color: red !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
