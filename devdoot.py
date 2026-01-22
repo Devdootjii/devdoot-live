@@ -17,6 +17,11 @@ FILES = {
     "tasks": "task_log.csv", "logo": "logo.png", "video": "background.mp4"
 }
 
+# --- IST TIME FUNCTION (INDIA TIME) ---
+def get_ist_time():
+    # Server Time (UTC) + 5 Hours 30 Minutes
+    return datetime.datetime.now() + datetime.timedelta(hours=5, minutes=30)
+
 def init_db():
     if not os.path.exists(FILES["users"]):
         data = {"Username": ["Devdoot", "Balram", "Naina", "Ritesh", "Harsh", "Shalini"],
@@ -37,7 +42,7 @@ def update_level(user, lvl, xp):
 init_db()
 
 # ==========================================
-# BLOCK 2: FINAL UI (CSS) - FIXED LOGO & BUTTONS
+# BLOCK 2: UI & CSS
 # ==========================================
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
@@ -69,7 +74,6 @@ st.markdown("""
         color: #ffffff;
     }
 
-    /* --- HEADINGS --- */
     h1, h2, h3 {
         background: linear-gradient(90deg, rgba(0,0,0,0.8), rgba(0,0,0,0));
         border-left: 5px solid #00c6ff;
@@ -83,23 +87,20 @@ st.markdown("""
         margin-bottom: 20px;
     }
 
-    /* --- CIRCULAR LOGO FIX (IMPORTANT) --- */
     [data-testid="stImage"] img {
         border-radius: 50% !important;
         border: 3px solid #00c6ff;
         box-shadow: 0 0 15px #00c6ff;
         object-fit: cover !important;
-        aspect-ratio: 1 / 1; /* Ensures perfect circle */
+        aspect-ratio: 1 / 1;
     }
 
-    /* --- POWER BUTTON (LOGOUT) --- */
     div[data-testid="column"] .stButton button p:contains("⏻") {
         color: #FF0000 !important;
         font-size: 24px !important;
         font-weight: 900 !important;
     }
     
-    /* --- CAPSULE BUTTONS --- */
     .stButton>button {
         background: rgba(0,0,0,0.6);
         color: #00c6ff;
@@ -115,7 +116,6 @@ st.markdown("""
         transform: scale(1.05);
     }
 
-    /* --- TABS DESIGN --- */
     .stTabs [data-baseweb="tab-list"] {
         gap: 15px;
         background-color: transparent;
@@ -140,154 +140,43 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # ==========================================
-# BLOCK 3: EXPANDED CONTENT (THE SYLLABUS) 📚
+# BLOCK 3: MODULES
 # ==========================================
 MODULES = {
     1: {
         "title": "MODULE 1: GENESIS (VARIABLES)",
-        "content": """
-        ### 📡 Concept: The Container
-        Imagine you have a box. You can put a number in it, or a name. In Python, this box is a **Variable**.
-        
-        **Rules of Engagement:**
-        1. Names cannot start with numbers (`1name` ❌).
-        2. No spaces (`my name` ❌), use underscore (`my_name` ✅).
-        3. Python is Case Sensitive (`Age` and `age` are different).
-
-        ### 💻 Code Example:
-        ```python
-        agent_name = "Devdoot"  # String
-        agent_id = 007          # Integer
-        is_active = True        # Boolean
-        print(f"Agent {agent_name} is active: {is_active}")
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Go to **Code Lab**. Create two variables `a = 10` and `b = 20`. Swap their values so `a` becomes 20 and `b` becomes 10. Print them.
-        """,
+        "content": "### 📡 Concept: The Container\nVariables store data.\n\n`agent = 'Devdoot'`\n`id = 7`",
         "quiz": {"q": "Which variable name is INVALID?", "options": ["_agent", "agent_1", "1st_agent", "AGENT"], "ans": "1st_agent"}
     },
     2: {
         "title": "MODULE 2: LOGIC GATES (IF-ELSE)",
-        "content": """
-        ### 📡 Concept: Decision Making
-        Code needs to make choices. If this happens, do that.
-
-        **The Hierarchy:**
-        * `if`: The first check.
-        * `elif`: If the first fails, check this.
-        * `else`: If everything fails, do this.
-
-        ### 💻 Code Example:
-        ```python
-        energy = 40
-        if energy > 80:
-            print("System Optimal")
-        elif energy > 30:
-            print("System Stable")
-        else:
-            print("CRITICAL WARNING")
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Go to **Code Lab**. Write a program that takes a variable `age`. If age < 18 print "Access Denied", else print "Access Granted".
-        """,
-        "quiz": {"q": "What happens if 'if' is False and no 'elif' exists?", "options": ["Error", "Code stops", "Runs 'else' (if present)", "Computer blasts"], "ans": "Runs 'else' (if present)"}
+        "content": "### 📡 Concept: Decisions\n`if energy < 10: print('Sleep')`",
+        "quiz": {"q": "What runs if 'if' fails?", "options": ["Error", "Code stops", "Runs 'else'", "Blast"], "ans": "Runs 'else'"}
     },
     3: {
         "title": "MODULE 3: CYCLES (LOOPS)",
-        "content": """
-        ### 📡 Concept: Automation
-        Why write print 100 times? Use a loop.
-
-        **1. For Loop:** When you know how many times to run.
-        **2. While Loop:** Run UNTIL a condition is met.
-
-        ### 💻 Code Example:
-        ```python
-        # Countdown
-        for i in range(5, 0, -1):
-            print(f"T-Minus {i}")
-        print("LIFT OFF! 🚀")
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Go to **Code Lab**. Use a loop to print the table of 5 (5, 10, 15... 50).
-        """,
-        "quiz": {"q": "range(0, 5) generates how many numbers?", "options": ["4", "5", "6", "0"], "ans": "5"}
+        "content": "### 📡 Concept: Automation\n`for i in range(5): print(i)`",
+        "quiz": {"q": "range(0, 5) generates?", "options": ["4 items", "5 items", "6 items"], "ans": "5 items"}
     },
     4: {
         "title": "MODULE 4: INVENTORY (LISTS)",
-        "content": """
-        ### 📡 Concept: Storing Multiple Items
-        A variable holds one thing. A **List** holds many things.
-
-        **Syntax:** `squad = ["Devdoot", "Balram", "Naina"]`
-        * Index 0: Devdoot
-        * Index 1: Balram
-        * Negative Index -1: The last item (Naina).
-
-        ### 💻 Code Example:
-        ```python
-        weapons = ["Laser", "Shield", "Bot"]
-        weapons.append("Rocket")  # Add new item
-        print(weapons[0])         # Prints 'Laser'
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Create a list of 3 fruits. Add a 4th fruit using code. Print the whole list.
-        """,
-        "quiz": {"q": "How to get the LAST item of a list?", "options": ["list[0]", "list[-1]", "list[last]", "list[end]"], "ans": "list[-1]"}
+        "content": "### 📡 Concept: Lists\n`squad = ['A', 'B', 'C']`\nIndex starts at 0.",
+        "quiz": {"q": "Get last item?", "options": ["list[0]", "list[-1]", "list[end]"], "ans": "list[-1]"}
     },
     5: {
         "title": "MODULE 5: TOOLS (FUNCTIONS)",
-        "content": """
-        ### 📡 Concept: Reusable Code
-        Don't repeat yourself (DRY). Wrap code in a Function.
-
-        **Def:** Defines the function.
-        **Return:** Gives back the result.
-
-        ### 💻 Code Example:
-        ```python
-        def check_status(name):
-            return f"Agent {name} is Online"
-
-        msg = check_status("Ritesh")
-        print(msg)
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Write a function `multiply(a, b)` that returns `a * b`. Test it with 5 and 6.
-        """,
-        "quiz": {"q": "Keyword to define a function?", "options": ["func", "def", "define", "lambda"], "ans": "def"}
+        "content": "### 📡 Concept: Functions\n`def action(): return 'Done'`",
+        "quiz": {"q": "Keyword for function?", "options": ["func", "def", "define"], "ans": "def"}
     },
     6: {
         "title": "MODULE 6: ERROR HANDLING",
-        "content": """
-        ### 📡 Concept: Bulletproof Code
-        Errors happen. Good code handles them without crashing.
-
-        **Try:** Run this risky code.
-        **Except:** If error happens, run this instead of crashing.
-
-        ### 💻 Code Example:
-        ```python
-        try:
-            print(10 / 0)
-        except ZeroDivisionError:
-            print("Cannot divide by Zero!")
-        ```
-        
-        ### ⚔️ Practice Mission:
-        Try to convert a string "hello" into an integer `int("hello")` inside a try-except block. Catch the error.
-        """,
-        "quiz": {"q": "Which block catches the error?", "options": ["try", "catch", "except", "error"], "ans": "except"}
+        "content": "### 📡 Concept: Safety\n`try: ... except: ...`",
+        "quiz": {"q": "Catches error?", "options": ["try", "catch", "except"], "ans": "except"}
     }
 }
 
 # ==========================================
-# BLOCK 4: LOGIN SYSTEM
+# BLOCK 4: LOGIN
 # ==========================================
 if "logged_in" not in st.session_state: st.session_state["logged_in"] = False
 
@@ -314,22 +203,17 @@ if not st.session_state["logged_in"]:
     st.stop()
 
 # ==========================================
-# BLOCK 5: MAIN APP
+# BLOCK 5: MAIN APP (IST FIXED)
 # ==========================================
 user = get_user_data(st.session_state['user'])
 lvl, xp = int(user['Level']), int(user['XP'])
 
-# --- UNIVERSAL HEADER ---
 top_col1, top_col2, top_col3 = st.columns([1, 8, 1])
-
 with top_col1:
-    if os.path.exists(FILES["logo"]): 
-        st.image(FILES["logo"], width=80)
-
+    if os.path.exists(FILES["logo"]): st.image(FILES["logo"], width=80)
 with top_col2:
     st.markdown(f"<h3 style='margin:0; font-size: 20px; text-align: left;'>WELCOME, AGENT {st.session_state['user']} | LEVEL {lvl}</h3>", unsafe_allow_html=True)
-    st.progress(min(lvl*16, 100)) # Adjusted progress math for 6 levels
-
+    st.progress(min(lvl*16, 100))
 with top_col3:
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("⏻"):
@@ -338,24 +222,24 @@ with top_col3:
 
 st.divider()
 
-# --- TABS ---
 tab_names = ["📊 DASHBOARD", "💻 CODE LAB", "🧠 TRAINING", "📝 ATTENDANCE", "⚙️ SETTINGS"]
 if st.session_state['role'] == "Admin": tab_names.append("👁️ GOD VIEW")
 tabs = st.tabs(tab_names)
 
-# --- TAB 1: DASHBOARD ---
+# --- DASHBOARD (Uses IST Time) ---
 with tabs[0]:
     st.title("COMMAND CENTER")
     c1, c2, c3 = st.columns(3)
     c1.metric("OPERATOR LEVEL", f"{lvl}", f"{xp} XP")
     
     att = load_db("attendance")
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    # FIX: Use IST time for comparing today's date
+    today = get_ist_time().strftime("%Y-%m-%d")
     present = att[att['Date']==today].shape[0] if not att.empty else 0
     c2.metric("SQUAD STATUS", f"{present}/6 Online", "Active")
     c3.metric("NEXT MISSION", f"Module {min(lvl+1, 6)}", "Pending")
 
-# --- TAB 2: CODE LAB ---
+# --- CODE LAB ---
 with tabs[1]:
     st.title("PYTHON IDE")
     col_code, col_out = st.columns([1, 1])
@@ -375,7 +259,7 @@ with tabs[1]:
                 st.toast("Executed Successfully", icon="✅")
             except Exception as e: st.error(f"RUNTIME ERROR:\n{e}")
 
-# --- TAB 3: TRAINING (EXPANDED) ---
+# --- TRAINING ---
 with tabs[2]:
     st.title("ACADEMY")
     mod_tabs = st.tabs([f"MOD {i}" for i in MODULES])
@@ -398,24 +282,28 @@ with tabs[2]:
                         time.sleep(1); st.rerun()
                     else: st.toast("NEGATIVE.", icon="❌")
 
-# --- TAB 4: ATTENDANCE ---
+# --- ATTENDANCE (Uses IST Time) ---
 with tabs[3]:
     st.title("DAILY LOG")
     c1, c2 = st.columns([1,2])
     with c1:
         if st.button("MARK PRESENCE"):
             df = load_db("attendance")
-            now = datetime.datetime.now()
-            if not df.empty and not df[(df['Name']==st.session_state['user']) & (df['Date']==now.strftime("%Y-%m-%d"))].empty:
+            # FIX: Use IST Time
+            now_ist = get_ist_time()
+            today_str = now_ist.strftime("%Y-%m-%d")
+            time_str = now_ist.strftime("%H:%M:%S")
+            
+            if not df.empty and not df[(df['Name']==st.session_state['user']) & (df['Date']==today_str)].empty:
                 st.toast("ALREADY LOGGED", icon="🛑")
             else:
-                new = pd.DataFrame({"Date": [now.strftime("%Y-%m-%d")], "Time": [now.strftime("%H:%M:%S")], "Name": [st.session_state['user']], "Status": ["Present"]})
+                new = pd.DataFrame({"Date": [today_str], "Time": [time_str], "Name": [st.session_state['user']], "Status": ["Present"]})
                 save_db(pd.concat([df, new]), "attendance")
-                st.toast(f"LOGGED AT {now.strftime('%H:%M')}", icon="📍")
+                st.toast(f"LOGGED AT {time_str}", icon="📍")
     with c2:
         st.dataframe(load_db("attendance"), use_container_width=True)
 
-# --- TAB 5: SETTINGS ---
+# --- SETTINGS ---
 with tabs[4]:
     st.title("SETTINGS")
     new_p = st.text_input("NEW PASSWORD", type="password")
@@ -425,7 +313,6 @@ with tabs[4]:
         save_db(df, "users")
         st.toast("UPDATED", icon="🔐")
 
-# --- TAB 6: GOD VIEW ---
 if st.session_state['role'] == "Admin":
     with tabs[5]:
         st.title("👁️ GOD VIEW")
