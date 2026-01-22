@@ -60,7 +60,7 @@ def update_password(username, new_pass):
         if cell: ws.update_cell(cell.row, 2, new_pass)
 
 # ==========================================
-# BLOCK 2: THE IRON MAN UI (FORCED GLASS MODE) 🎨
+# BLOCK 2: THE FROSTED GLASS UI (DESIGN UPGRADE) 💎
 # ==========================================
 def add_bg_from_local(image_file):
     try:
@@ -70,9 +70,10 @@ def add_bg_from_local(image_file):
             f"""
             <style>
             .stApp {{ background: rgba(0,0,0,0); }}
+            /* BACKGROUND VIDEO (Keep it sharp) */
             .bg-video {{
                 position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%;
-                z-index: -1; opacity: 0.85; object-fit: cover;
+                z-index: -1; opacity: 1; object-fit: cover;
             }}
             </style>
             <video autoplay muted loop id="myVideo" class="bg-video">
@@ -84,22 +85,22 @@ def add_bg_from_local(image_file):
 
 add_bg_from_local("background.mp4")
 
-# --- HERE IS THE MAGIC CSS CHANGE ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500;800&display=swap');
     html, body, [class*="css"] { font-family: 'Exo 2', sans-serif; color: #ffffff; }
 
-    /* --- THE GLASS BOX (MAIN CONTAINER) --- */
-    /* This forces the main content area to have a background */
+    /* --- THE MAGIC LAYER (Frosted Glass) --- */
+    /* This targets ONLY the center box where content lives */
     [data-testid="block-container"] {
-        background-color: rgba(0, 0, 0, 0.8) !important; /* Dark Background */
-        backdrop-filter: blur(10px); /* Blur Effect */
+        background-color: rgba(0, 0, 0, 0.6); /* Black with 60% see-through */
+        backdrop-filter: blur(15px);           /* BLUR what is behind this box */
+        -webkit-backdrop-filter: blur(15px);   /* For Safari */
         border-radius: 20px;
-        padding: 30px;
+        padding: 40px;
         margin-top: 20px;
-        border: 1px solid rgba(0, 198, 255, 0.3); /* Cyan Border */
-        box-shadow: 0 0 30px rgba(0, 198, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Shadow for depth */
     }
 
     /* --- HEADINGS --- */
@@ -114,13 +115,17 @@ st.markdown("""
     .stButton>button { background: rgba(0,0,0,0.6); color: #00c6ff; border: 1px solid #00c6ff; border-radius: 50px; font-weight: bold; }
     .stButton>button:hover { background: #00c6ff; color: black; box-shadow: 0 0 20px #00c6ff; transform: scale(1.05); }
     
-    /* --- TABS & CARDS --- */
+    /* --- TABS --- */
     .stTabs [data-baseweb="tab-list"] { gap: 15px; background-color: transparent; padding: 15px; justify-content: center; }
-    .stTabs [data-baseweb="tab"] { height: 50px; border-radius: 50px; background-color: rgba(255,255,255,0.1); color: #aaa; border: 1px solid #333; }
+    .stTabs [data-baseweb="tab"] { height: 50px; border-radius: 50px; background-color: rgba(255,255,255,0.05); color: #aaa; border: 1px solid #333; }
     .stTabs [aria-selected="true"] { background: linear-gradient(90deg, #00c6ff, #0072ff); color: white !important; }
     
-    /* Remove default padding from top to make video look better */
-    .main .block-container { padding-top: 2rem; }
+    /* Input Fields Background */
+    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
+        background-color: rgba(0,0,0,0.5) !important;
+        color: white !important;
+        border: 1px solid #444;
+    }
     </style>
     """, unsafe_allow_html=True)
 
