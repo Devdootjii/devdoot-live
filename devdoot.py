@@ -60,7 +60,7 @@ def update_password(username, new_pass):
         if cell: ws.update_cell(cell.row, 2, new_pass)
 
 # ==========================================
-# BLOCK 2: THE FROSTED GLASS UI (DESIGN UPGRADE) 💎
+# BLOCK 2: THE SANDWICH UI (FINAL FIX) 🥪
 # ==========================================
 def add_bg_from_local(image_file):
     try:
@@ -69,8 +69,10 @@ def add_bg_from_local(image_file):
         st.markdown(
             f"""
             <style>
-            .stApp {{ background: rgba(0,0,0,0); }}
-            /* BACKGROUND VIDEO (Keep it sharp) */
+            /* Reset Default Backgrounds */
+            .stApp {{ background: transparent !important; }}
+            
+            /* BACKGROUND VIDEO (Layer 1 - Bottom) */
             .bg-video {{
                 position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%;
                 z-index: -1; opacity: 1; object-fit: cover;
@@ -90,42 +92,59 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500;800&display=swap');
     html, body, [class*="css"] { font-family: 'Exo 2', sans-serif; color: #ffffff; }
 
-    /* --- THE MAGIC LAYER (Frosted Glass) --- */
-    /* This targets ONLY the center box where content lives */
-    [data-testid="block-container"] {
-        background-color: rgba(0, 0, 0, 0.6); /* Black with 60% see-through */
-        backdrop-filter: blur(15px);           /* BLUR what is behind this box */
-        -webkit-backdrop-filter: blur(15px);   /* For Safari */
-        border-radius: 20px;
-        padding: 40px;
-        margin-top: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    /* --- THE MAGIC LAYER (Layer 2 - Middle) --- */
+    /* This forces the content box to float in the middle with blur */
+    div[data-testid="block-container"] {
+        background-color: rgba(0, 0, 0, 0.7) !important; /* Dark See-through Black */
+        backdrop-filter: blur(20px) !important;           /* Heavy Blur behind text */
+        -webkit-backdrop-filter: blur(20px) !important;
+        border-radius: 25px !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Shiny border */
+        padding: 40px !important; /* Space inside box */
+        
+        /* THIS IS KEY: Make margins so video is visible on sides */
+        margin: auto !important;
+        width: 90% !important; /* Leave 10% space for video */
+        max-width: 1400px !important;
+        margin-top: 40px !important;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.8) !important; /* Shadow to separate form video */
     }
 
-    /* --- HEADINGS --- */
+    /* --- TEXT & HEADINGS (Layer 3 - Top) --- */
     h1, h2, h3 {
         background: linear-gradient(to right, #00c6ff, #0072ff);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         font-weight: 800 !important; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
     }
     
-    /* --- WIDGETS --- */
-    [data-testid="stImage"] img { border-radius: 50% !important; border: 3px solid #00c6ff; box-shadow: 0 0 15px #00c6ff; }
-    .stButton>button { background: rgba(0,0,0,0.6); color: #00c6ff; border: 1px solid #00c6ff; border-radius: 50px; font-weight: bold; }
-    .stButton>button:hover { background: #00c6ff; color: black; box-shadow: 0 0 20px #00c6ff; transform: scale(1.05); }
+    /* --- INPUT FIELDS (Make them pop) --- */
+    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
+        background-color: rgba(0,0,0,0.6) !important;
+        color: white !important;
+        border: 1px solid #00c6ff !important;
+        border-radius: 10px !important;
+    }
+
+    /* --- BUTTONS --- */
+    .stButton>button { 
+        background: linear-gradient(45deg, #000, #222) !important; 
+        color: #00c6ff !important; 
+        border: 1px solid #00c6ff !important; 
+        border-radius: 50px !important; 
+        font-weight: bold; 
+        padding: 0.5rem 1.5rem !important;
+    }
+    .stButton>button:hover { 
+        background: #00c6ff !important; 
+        color: black !important; 
+        box-shadow: 0 0 20px #00c6ff !important; 
+        transform: scale(1.05); 
+    }
     
     /* --- TABS --- */
     .stTabs [data-baseweb="tab-list"] { gap: 15px; background-color: transparent; padding: 15px; justify-content: center; }
     .stTabs [data-baseweb="tab"] { height: 50px; border-radius: 50px; background-color: rgba(255,255,255,0.05); color: #aaa; border: 1px solid #333; }
     .stTabs [aria-selected="true"] { background: linear-gradient(90deg, #00c6ff, #0072ff); color: white !important; }
-    
-    /* Input Fields Background */
-    .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: rgba(0,0,0,0.5) !important;
-        color: white !important;
-        border: 1px solid #444;
-    }
     </style>
     """, unsafe_allow_html=True)
 
