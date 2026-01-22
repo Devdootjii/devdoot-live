@@ -60,7 +60,7 @@ def update_password(username, new_pass):
         if cell: ws.update_cell(cell.row, 2, new_pass)
 
 # ==========================================
-# BLOCK 2: THE SANDWICH UI (FINAL FIX) 🥪
+# BLOCK 2: THE SOLID CONSOLE UI (NO TRANSPARENCY) 🛡️
 # ==========================================
 def add_bg_from_local(image_file):
     try:
@@ -69,10 +69,7 @@ def add_bg_from_local(image_file):
         st.markdown(
             f"""
             <style>
-            /* Reset Default Backgrounds */
             .stApp {{ background: transparent !important; }}
-            
-            /* BACKGROUND VIDEO (Layer 1 - Bottom) */
             .bg-video {{
                 position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%;
                 z-index: -1; opacity: 1; object-fit: cover;
@@ -92,59 +89,47 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500;800&display=swap');
     html, body, [class*="css"] { font-family: 'Exo 2', sans-serif; color: #ffffff; }
 
-    /* --- THE MAGIC LAYER (Layer 2 - Middle) --- */
-    /* This forces the content box to float in the middle with blur */
-    div[data-testid="block-container"] {
-        background-color: rgba(0, 0, 0, 0.7) !important; /* Dark See-through Black */
-        backdrop-filter: blur(20px) !important;           /* Heavy Blur behind text */
-        -webkit-backdrop-filter: blur(20px) !important;
-        border-radius: 25px !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Shiny border */
-        padding: 40px !important; /* Space inside box */
+    /* --- THE SOLID WALL (Main Container) --- */
+    /* This creates the solid box. Video CANNOT be seen through this. */
+    [data-testid="block-container"] {
+        background-color: #0e1117 !important; /* SOLID DARK GREY (Not Transparent) */
+        opacity: 1 !important;
         
-        /* THIS IS KEY: Make margins so video is visible on sides */
+        /* Box Styling */
+        border: 2px solid #00c6ff;
+        border-radius: 15px;
+        padding: 3rem !important;
+        box-shadow: 0 0 50px rgba(0, 198, 255, 0.2);
+        
+        /* Sizing & Centering (To show video on edges) */
+        width: 85% !important;
+        max-width: 1200px !important;
         margin: auto !important;
-        width: 90% !important; /* Leave 10% space for video */
-        max-width: 1400px !important;
-        margin-top: 40px !important;
-        box-shadow: 0 10px 50px rgba(0,0,0,0.8) !important; /* Shadow to separate form video */
+        margin-top: 30px !important;
     }
 
-    /* --- TEXT & HEADINGS (Layer 3 - Top) --- */
+    /* --- HEADINGS --- */
     h1, h2, h3 {
         background: linear-gradient(to right, #00c6ff, #0072ff);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        font-weight: 800 !important; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
+        font-weight: 800 !important; text-transform: uppercase; letter-spacing: 2px;
     }
     
-    /* --- INPUT FIELDS (Make them pop) --- */
+    /* --- INPUT FIELDS (Solid Backgrounds) --- */
     .stTextInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: rgba(0,0,0,0.6) !important;
+        background-color: #1c1f26 !important; /* Lighter Grey */
         color: white !important;
-        border: 1px solid #00c6ff !important;
-        border-radius: 10px !important;
+        border: 1px solid #444 !important;
     }
 
-    /* --- BUTTONS --- */
-    .stButton>button { 
-        background: linear-gradient(45deg, #000, #222) !important; 
-        color: #00c6ff !important; 
-        border: 1px solid #00c6ff !important; 
-        border-radius: 50px !important; 
-        font-weight: bold; 
-        padding: 0.5rem 1.5rem !important;
-    }
-    .stButton>button:hover { 
-        background: #00c6ff !important; 
-        color: black !important; 
-        box-shadow: 0 0 20px #00c6ff !important; 
-        transform: scale(1.05); 
-    }
-    
     /* --- TABS --- */
-    .stTabs [data-baseweb="tab-list"] { gap: 15px; background-color: transparent; padding: 15px; justify-content: center; }
-    .stTabs [data-baseweb="tab"] { height: 50px; border-radius: 50px; background-color: rgba(255,255,255,0.05); color: #aaa; border: 1px solid #333; }
-    .stTabs [aria-selected="true"] { background: linear-gradient(90deg, #00c6ff, #0072ff); color: white !important; }
+    .stTabs [data-baseweb="tab-list"] { gap: 10px; }
+    .stTabs [data-baseweb="tab"] { background-color: #1c1f26; border: 1px solid #444; color: #ccc; }
+    .stTabs [aria-selected="true"] { background: #00c6ff !important; color: black !important; border: none; }
+    
+    /* --- BUTTONS --- */
+    .stButton>button { border: 1px solid #00c6ff; color: #00c6ff; background: transparent; }
+    .stButton>button:hover { background: #00c6ff; color: black; }
     </style>
     """, unsafe_allow_html=True)
 
